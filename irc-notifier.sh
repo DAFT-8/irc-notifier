@@ -38,9 +38,9 @@ while read -u 3 -r line; do
         message=$(echo "${line}" | cut -d ' ' -f 4- | cut -d ':' -f 2-)
 
 	if command -v pkg >/dev/null; then
-		$(adb shell cmd notification post -S bigtext -t "Message from ${sender}" "${CHANNEL}" "${message}") >/dev/null
+		$(adb shell cmd notification post -S bigtext -t "Message from ${sender} | ${CHANNEL}: ${message}") >/dev/null
 	else
-		$(notify-send "Message from ${sender}: ${message}") >/dev/null
+		$(notify-send "Message from ${sender} | ${CHANNEL}: ${message}") >/dev/null
 	fi
 
         last_message="${line}"
@@ -48,4 +48,3 @@ while read -u 3 -r line; do
 done
 
 exec 3<&-
-exec 3>&-
